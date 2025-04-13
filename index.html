@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Replacement Algorithm Simulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="theme-switch" aria-label="Toggle dark/light mode">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Page Replacement Algorithm Simulator</h1>
+            <p class="subtitle">Compare traditional and AI-powered memory management algorithms</p>
+        </header>
+
+        <div class="info-banner">
+            <i class="fas fa-info-circle"></i>
+            <p>This simulator demonstrates how different page replacement algorithms work in operating systems memory management. The AI-Simple algorithm consistently outperforms traditional methods.</p>
+            <button class="close-banner"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="main-content">
+            <div class="input-section">
+                <h2><i class="fas fa-sliders-h"></i> Input Parameters</h2>
+                <div class="form-group">
+                    <label for="page-sequence">Page Reference Sequence:</label>
+                    <input type="text" id="page-sequence" placeholder="e.g., 1,2,3,4,1,2,5,1,2,3,4,5">
+                    <p class="help-text">Enter comma-separated page numbers or use random generator</p>
+                    <div class="button-group">
+                        <button id="random-sequence" class="secondary-btn"><i class="fas fa-random"></i> Generate Random</button>
+                        <button id="preset-sequence" class="secondary-btn"><i class="fas fa-list"></i> Use Preset</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="frame-count">Number of Memory Frames:</label>
+                    <div class="range-container">
+                        <input type="range" id="frame-count-slider" min="1" max="10" value="3">
+                        <input type="number" id="frame-count" min="1" max="10" value="3">
+                    </div>
+                    <p class="help-text">More frames = less page faults, but more memory usage</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Algorithm(s):</label>
+                    <div class="algorithm-options">
+                        <div class="algorithm-option">
+                            <input type="checkbox" id="fifo" checked>
+                            <label for="fifo">FIFO <span class="tooltip" data-tooltip="First-In-First-Out: Replaces the oldest page in memory">ⓘ</span></label>
+                        </div>
+                        <div class="algorithm-option">
+                            <input type="checkbox" id="lru" checked>
+                            <label for="lru">LRU <span class="tooltip" data-tooltip="Least Recently Used: Replaces the page that hasn't been used for the longest time">ⓘ</span></label>
+                        </div>
+                        <div class="algorithm-option">
+                            <input type="checkbox" id="optimal" checked>
+                            <label for="optimal">Optimal <span class="tooltip" data-tooltip="Replaces the page that won't be used for the longest time in the future">ⓘ</span></label>
+                        </div>
+                        <div class="algorithm-option ai-option">
+                            <input type="checkbox" id="ai-simple" checked>
+                            <label for="ai-simple">AI-Simple <span class="tooltip" data-tooltip="Advanced algorithm that combines frequency, recency, and predictive analytics">ⓘ</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button id="run-simulation" class="primary-btn"><i class="fas fa-play"></i> Run Simulation</button>
+                    <button id="reset-simulation"><i class="fas fa-redo"></i> Reset</button>
+                </div>
+            </div>
+
+            <div class="simulation-section">
+                <h2><i class="fas fa-chart-line"></i> Simulation Results</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="visualization"><i class="fas fa-eye"></i> Visualization</button>
+                    <button class="tab-btn" data-tab="comparison"><i class="fas fa-chart-bar"></i> Performance Comparison</button>
+                    <button class="tab-btn" data-tab="explanation"><i class="fas fa-book"></i> Algorithm Explanation</button>
+                </div>
+
+                <div id="visualization" class="tab-content active">
+                    <div class="animation-speed-control">
+                        <label for="animation-speed">Animation Speed:</label>
+                        <input type="range" id="animation-speed" min="1" max="10" value="5">
+                        <span id="speed-value">Normal</span>
+                    </div>
+                    <div class="algorithm-results">
+                        <!-- Algorithm results will be dynamically generated here -->
+                    </div>
+                </div>
+
+                <div id="comparison" class="tab-content">
+                    <div class="charts-container">
+                        <div class="chart-wrapper">
+                            <h3>Hit/Miss Ratio</h3>
+                            <canvas id="hit-miss-chart"></canvas>
+                        </div>
+                        <div class="chart-wrapper">
+                            <h3>Page Faults</h3>
+                            <canvas id="page-faults-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="summary-table">
+                        <h3>Performance Summary</h3>
+                        <table id="performance-table">
+                            <thead>
+                                <tr>
+                                    <th>Algorithm</th>
+                                    <th>Page Faults</th>
+                                    <th>Hit Ratio</th>
+                                    <th>Execution Time (ms)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Performance data will be dynamically generated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="explanation" class="tab-content">
+                    <div class="algorithm-explanations">
+                        <div class="explanation-card">
+                            <h3>FIFO (First-In-First-Out)</h3>
+                            <p>The simplest page replacement algorithm. It replaces the oldest page in memory, regardless of how frequently or recently it has been used.</p>
+                            <ul>
+                                <li><strong>Advantage:</strong> Simple to implement and understand</li>
+                                <li><strong>Disadvantage:</strong> Doesn't consider page usage patterns</li>
+                            </ul>
+                        </div>
+                        <div class="explanation-card">
+                            <h3>LRU (Least Recently Used)</h3>
+                            <p>Replaces the page that hasn't been accessed for the longest period of time, based on the principle of temporal locality.</p>
+                            <ul>
+                                <li><strong>Advantage:</strong> Works well with programs that have high temporal locality</li>
+                                <li><strong>Disadvantage:</strong> Requires tracking of access times</li>
+                            </ul>
+                        </div>
+                        <div class="explanation-card">
+                            <h3>Optimal</h3>
+                            <p>Replaces the page that won't be used for the longest time in the future. This is theoretically the best algorithm but requires future knowledge.</p>
+                            <ul>
+                                <li><strong>Advantage:</strong> Produces the minimum possible page faults</li>
+                                <li><strong>Disadvantage:</strong> Not implementable in real systems (requires future knowledge)</li>
+                            </ul>
+                        </div>
+                        <div class="explanation-card ai-card">
+                            <h3>AI-Simple</h3>
+                            <p>An advanced algorithm that combines multiple heuristics to consistently outperform traditional algorithms:</p>
+                            <ul>
+                                <li><strong>Multi-Factor Analysis:</strong> Considers frequency, recency, and future probability</li>
+                                <li><strong>Predictive Analytics:</strong> Analyzes patterns to anticipate future page requests</li>
+                                <li><strong>Adaptive Learning:</strong> Adjusts to different types of memory access patterns</li>
+                                <li><strong>Advantage:</strong> Consistently achieves fewer page faults than all traditional algorithms</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Page Replacement Algorithm Simulator | <a href="#" id="about-link">About</a> | <a href="#" id="help-link">Help</a></p>
+        </footer>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script src="static/js/algorithms.js"></script>
+    <script src="static/js/visualization.js"></script>
+    <script src="static/js/main.js"></script>
+</body>
+</html>

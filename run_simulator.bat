@@ -1,0 +1,3 @@
+@echo off
+echo Opening Page Replacement Algorithm Simulator...
+start "" "%~dp0index.html"
