@@ -72,6 +72,6 @@ The AI-Simple algorithm consistently achieves:
 - Fewer page faults in various access patterns
 - Optimal or near-optimal performance without perfect future knowledge
 
-## License
+##  License
 
-MIT License
+This project is licensed under the [MIT License].
