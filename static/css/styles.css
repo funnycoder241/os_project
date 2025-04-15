@@ -1,7 +1,9 @@
 /* Global Styles */
 :root {
-    /* Light Theme Colors */
+    /* Light Theme Colors 
     --primary-color: #3498db;
+    */
+    --primary-color: #b4151571;
     --secondary-color: #2ecc71;
     --error-color: #e74c3c;
     --dark-color: #2c3e50;
