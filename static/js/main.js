@@ -128,7 +128,8 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         modal.style.display = 'flex';
     });
-    
+    // Handle simulation run: validate input, prepare UI, execute simulations and show results
+
     helpLink.addEventListener('click', (e) => {
         e.preventDefault();
         modalContent.innerHTML = `
