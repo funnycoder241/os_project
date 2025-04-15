@@ -65,6 +65,9 @@ The AI-Simple algorithm is an advanced page replacement strategy that combines m
 4. Click "Run Simulation" to see the results
 5. View the visualization and performance comparison
 
+## Future Enhancements
+- Dark mode for UI
+- User account system to save simulations
 ## Performance
 
 The AI-Simple algorithm consistently achieves:
